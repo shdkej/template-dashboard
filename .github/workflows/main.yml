@@ -1,0 +1,37 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm test
+
+      - name:  'Automated Version Bump'
+        id: tag
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          default: prerelease
+
+      - name: Docker-Compose Publish
+        # You may pin to the exact commit or the version.
+        # uses: pennsignals/publish_docker-compose@da09b48fff3a4c34dd78fe112cbb5c001e2a9582
+        uses: pennsignals/publish_docker-compose@v0.1.1
+        with:
+          # Release version (tag)
+          version: ${{ steps.tag.output.newTag }} # optional, default is 
+          # docker-compose file to build and publish images from
+          docker_compose: docker-compose.yml
