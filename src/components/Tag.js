@@ -4,11 +4,16 @@ import { addTag } from "./fetch";
 const TagManager = (props) => {
     const [data, setData] = useState("");
     const [visible, setVisible] = useState(false);
-    const { selection } = props;
+    const { selection, childCall } = props;
 
-    const add = useCallback((data, selection) => {
-        addTag(data, selection);
-    }, []);
+    const add = useCallback(
+        (data, selection) => {
+            addTag(data, selection);
+            childCall((prev) => !prev);
+            console.log("callback in tagmanager", data);
+        },
+        [childCall]
+    );
 
     return (
         <div>

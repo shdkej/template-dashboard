@@ -1,13 +1,35 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import TagManager from "./components/Tag";
 import Popup from "./components/popup";
 import { useSortableData } from "./components/filter";
-import { addItem, updateRequestedTag, deleteItem } from "./components/fetch";
+import {
+    getDict,
+    addItem,
+    updateRequestedTag,
+    deleteItem,
+    getRequestedTag,
+} from "./components/fetch";
 
 const Dictionary = (props) => {
     const [value, setValue] = useState("");
-    const [options, setOptions] = useState(props.options);
+    const [options, setOptions] = useState(null);
+    const [tags, setTags] = useState(null);
+    const [child, setChild] = useState(true);
     const { items, requestSort } = useSortableData(options);
+
+    useEffect(() => {
+        getDict().then((res) => {
+            setOptions(res.data);
+            console.log(res.data);
+        });
+    }, []);
+
+    useEffect(() => {
+        getRequestedTag().then((res) => {
+            setTags(res.data);
+            console.log("tag = ", res.data);
+        });
+    }, [child]);
 
     const add = useCallback((data) => {
         const tag = addItem(data);
@@ -28,17 +50,17 @@ const Dictionary = (props) => {
                         <th>
                             <button
                                 type="button"
-                                onClick={() => requestSort("Tag")}
+                                onClick={() => requestSort("Name")}
                             >
-                                key
+                                Name
                             </button>
                         </th>
                         <th>
                             <button
                                 type="button"
-                                onClick={() => requestSort("TagLine")}
+                                onClick={() => requestSort("Tags")}
                             >
-                                key
+                                Tags
                             </button>
                         </th>
                         <th>
@@ -46,7 +68,7 @@ const Dictionary = (props) => {
                                 type="button"
                                 onClick={() => requestSort("UpdatedAt")}
                             >
-                                key
+                                Updated
                             </button>
                         </th>
                         <th>requested</th>
@@ -57,17 +79,29 @@ const Dictionary = (props) => {
                         items.map((option, index) => (
                             <tr key={index}>
                                 <td>
-                                    <Popup text={option.Tag} />
+                                    <Popup text={option.Name} />
                                 </td>
-                                <td>{option.TagLine}</td>
-                                <td>{option.CreatedAt}</td>
+                                <td>{option.Tags}</td>
+                                <td>{option.UpdatedAt}</td>
                                 <td>
-                                    <TagManager selection={option.Tag} />
+                                    {tags && "Tag" in tags
+                                        ? tags[
+                                              tags.findIndex(
+                                                  (i) => i.Tag === option.Name
+                                              )
+                                          ].TagLine
+                                        : []}
+                                </td>
+                                <td>
+                                    <TagManager
+                                        selection={option.Name}
+                                        childCall={setChild}
+                                    />
                                 </td>
                                 <td>
                                     <button
                                         type="button"
-                                        onClick={() => doDelete(option.Tag)}
+                                        onClick={() => doDelete(option.Name)}
                                     >
                                         x
                                     </button>
@@ -75,7 +109,9 @@ const Dictionary = (props) => {
                             </tr>
                         ))
                     ) : (
-                        <p>Empty Options</p>
+                        <tr>
+                            <td>Empty Options</td>
+                        </tr>
                     )}
                 </tbody>
             </table>

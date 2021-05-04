@@ -1,6 +1,6 @@
 {
     "name": "Template-Board",
-    "version": "0.2.1-rc.0",
+    "version": "0.2.0",
     "private": true,
     "dependencies": {
         "axios": "^0.21.1",
@@ -17,11 +17,7 @@
     },
     "proxy": "http://localhost:8080",
     "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
+        "production": [">0.2%", "not dead", "not op_mini all"],
         "development": [
             "last 1 chrome version",
             "last 1 firefox version",

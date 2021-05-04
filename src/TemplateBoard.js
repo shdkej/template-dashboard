@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CustomSelection from "./components/Selection";
 import Search from "./components/serverSearch";
+import Filter from "./components/filter";
 
 class TemplateBoard extends Component {
     constructor() {
@@ -11,13 +12,13 @@ class TemplateBoard extends Component {
             urls: [
                 {
                     name: "workflows",
-                    url: "http://localhost:8081/search",
+                    url: "http://localhost:8082",
                     request: [],
                 },
-                { name: "note", url: "http://localhost:8080/tag", request: [] },
+                { name: "note", url: "http://localhost:8080", request: [] },
                 {
                     name: "dict-request",
-                    url: "http://localhost:8080/dict",
+                    url: "http://localhost:8081",
                     request: [],
                 },
             ],
@@ -67,9 +68,8 @@ class TemplateBoard extends Component {
                     <h3>repositories</h3>
                 </div>
                 <div>Total: {this.state.requestData}</div>
-                <div>
-                    <Search />
-                </div>
+                <Search name={"Test"} data={this.state.requestData} />
+                <Filter name={"Test"} data={this.state.requestData} />
             </div>
         );
     }

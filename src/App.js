@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
-import axios from "axios";
+import { TemplateBoard, Dictionary, Workflows, SearchBoard } from "./pages";
 import Box from "./components/box";
-import { TemplateBoard, Dictionary } from "./pages";
-import Filter from "./components/filter";
 
 class App extends Component {
     constructor() {
@@ -12,43 +10,16 @@ class App extends Component {
         this.state = {
             options: [],
             data: [],
-            newData: "",
-            loading: true,
             error: null,
         };
     }
-
-    componentDidMount() {
-        this.getList("http://localhost:8081/search")
-            .then((res) => {
-                this.setState({ options: res.data, loading: false });
-                console.log(res);
-            })
-            .catch((err) => this.setState({ loading: false, error: err }));
-    }
-
-    getList = (url) => {
-        return axios.get(url);
-    };
 
     handleUpdate = (value) => {
         this.setState({ data: value });
     };
 
-    handleSubmit = (event) => {
-        const newData = event;
-
-        this.setState((prevState) => {
-            const updatedData = prevState.data.concat(newData);
-            return {
-                data: updatedData,
-            };
-        });
-    };
-
     render() {
-        const { options, loading, error } = this.state;
-        if (loading) return <p>Loading ...</p>;
+        const { options, error } = this.state;
         if (error) return <p>error</p>;
 
         return (
@@ -59,6 +30,12 @@ class App extends Component {
                     </li>
                     <li>
                         <Link to="/dictionary">Dictionary</Link>
+                    </li>
+                    <li>
+                        <Link to="/workflow">Workflow</Link>
+                    </li>
+                    <li>
+                        <Link to="/searchboard">SearchBoard</Link>
                     </li>
                 </div>
                 <h1>Template</h1>
@@ -87,10 +64,21 @@ class App extends Component {
                     <Route
                         path="/dictionary"
                         render={(props) => (
-                            <Dictionary {...props} options={options} />
+                            <Dictionary />
                         )}
                     />
-                    <Filter name={"Test"} data={options} />
+                    <Route
+                        path="/workflow"
+                        render={(props) => (
+                            <Workflows />
+                        )}
+                    />
+                    <Route
+                        path="/searchboard"
+                        render={(props) => (
+                            <SearchBoard />
+                        )}
+                    />
                 </div>
             </div>
         );

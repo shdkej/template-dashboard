@@ -14,8 +14,9 @@ const CustomSelection = (props) => {
             );
             setData(value);
             parentCallback(props.name, value);
+            console.log("callback in selection", data);
         },
-        [setData, parentCallback, props.name]
+        [setData, parentCallback, props.name, data]
     );
 
     const renderOutput = useCallback(
@@ -53,13 +54,12 @@ const CustomSelection = (props) => {
                     multiple={true}
                     onChange={(event) => handleSelectChange(event)}
                 >
-                    {options[0].hasOwnProperty("Tag")
+                    {typeof options === "object" &&
+                    options[0].hasOwnProperty("Tag")
                         ? options.map((item, index) =>
                               renderInput(index, item.Tag)
                           )
-                        : options.map((item, index) =>
-                              renderInput(index, item)
-                          )}
+                        : null}
                 </select>
             </div>
 

@@ -2,6 +2,7 @@ version: '2'
 services:
   client:
     build: ./
+    image: shdkej/template-client:0.1.0
     command: npm start
     volumes:
       - ./:/usr/app

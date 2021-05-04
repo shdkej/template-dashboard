@@ -6,7 +6,7 @@ const Filter = (props) => {
     return (
         <div>
             <h3>{name}</h3>
-            {items
+            {items && typeof items === "object" && "Tag" in items
                 ? items.map((item, index) => <p key={index}>{item.Tag}</p>)
                 : items}
             <button onClick={() => requestSort("UpdatedAt")}>sort</button>
@@ -18,6 +18,9 @@ export const useSortableData = (options, config = null) => {
     const [sortConfig, setSortConfig] = useState(config);
 
     const sortedItems = useMemo(() => {
+        if (!options) {
+            return;
+        }
         let sortedOptions = [...options];
         if (sortConfig !== null) {
             sortedOptions.sort((a, b) => {
@@ -30,6 +33,7 @@ export const useSortableData = (options, config = null) => {
                 return 0;
             });
         }
+        console.log("memo in filter");
         return sortedOptions;
     }, [options, sortConfig]);
 

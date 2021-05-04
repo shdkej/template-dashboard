@@ -1,66 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { getPopupData } from "./fetch";
 
-class Popup extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false,
-            data: "",
-        };
-    }
+const Popup = (props) => {
+    const [open, setOpen] = useState(false);
+    const [data, setData] = useState("");
+    const { text } = props;
 
-    componentDidMount() {
-        const text = this.props.text;
-        getPopupData(text).then((res) => this.setState({ data: res }));
-    }
+    useEffect(() => {
+        getPopupData(text).then((res) => setData(res));
+    }, [text]);
 
-    onPopup = () => {
-        this.setState({
-            open: true,
-        });
-    };
-
-    offPopup = () => {
-        this.setState({
-            open: false,
-        });
-    };
-
-    render() {
-        const text = this.state.data;
-        let yaml = text.replaceAll("\n", "<br/>");
-        yaml = yaml.replaceAll(" ", "&nbsp;&nbsp;");
-        return (
+    let yaml = data ? data.replaceAll("\n", "<br/>") : "empty";
+    yaml = yaml.replaceAll(" ", "&nbsp;&nbsp;");
+    return (
+        <div
+            role="link"
+            tabIndex="0"
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+        >
+            <p style={{ textDecorationLine: `underline` }}>{text}</p>
             <div
                 role="link"
                 tabIndex="0"
-                onMouseEnter={() => this.onPopup()}
-                onMouseLeave={() => this.offPopup()}
+                onMouseDown={() => setOpen(false)}
+                style={{
+                    background: `#343a40`,
+                    position: `absolute`,
+                    zIndex: `1`,
+                    marginLeft: `100px`,
+                    width: `50%`,
+                    textAlign: `left`,
+                }}
             >
-                <p style={{ textDecorationLine: `underline` }}>
-                    {this.props.text}
-                </p>
-                <div
-                    role="link"
-                    tabIndex="0"
-                    onMouseDown={() => this.offPopup()}
-                    style={{
-                        background: `#343a40`,
-                        position: `absolute`,
-                        zIndex: `1`,
-                        marginLeft: `100px`,
-                        width: `50%`,
-                        textAlign: `left`,
-                    }}
-                >
-                    {this.state.open ? (
-                        <div dangerouslySetInnerHTML={{ __html: yaml }}></div>
-                    ) : null}
-                </div>
+                {open ? (
+                    <div dangerouslySetInnerHTML={{ __html: yaml }}></div>
+                ) : null}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default Popup;

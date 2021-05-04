@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Search = () => {
-    const [data, setData] = useState([]);
-    const [value, setValue] = useState("");
+const Search = (props) => {
+    const [output, setOutput] = useState([]);
+    const { name, data } = props;
 
     useEffect(() => {
-        sss(value, setData);
-        console.log(data);
-    }, [value]);
+        sss(data, setOutput);
+        console.log("effected in serverSearch", data);
+    }, [data]);
 
     return (
         <div>
-            <h3>Server Side Search</h3>
-            <input
-                type="text"
-                name="ss-search"
-                value={value}
-                placeholder="Server Side Search"
-                onChange={(event) => setValue(event.target.value)}
-            />
-            <div>{data ? data.map((item) => item.Tag) : "empty"}</div>
+            <h3>Server Side Search for {name}</h3>
+            <button onClick={() => console.log("")}>search</button>
+            <div>{output ? output.map((item) => item.Tag) : "empty"}</div>
         </div>
     );
 };
 
-const sss = (value, setData) => {
+const sss = (value, setOutput) => {
+    value = value.toString().replaceAll(",", "%20").replaceAll("#", "");
     axios
-        .get("http://localhost:8081/search/" + value)
-        .then((res) => setData(res.data));
+        .get("http://localhost:8082/" + value)
+        .then((res) => setOutput(res.data));
 };
 
 export default Search;

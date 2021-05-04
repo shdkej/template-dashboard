@@ -147,3 +147,18 @@ button {
     border: 1px solid #aaa;
     border-radius: 0.5em;
 }
+
+.workflow {
+    grid-area: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.setup {
+    padding: 10px;
+}
+
+.board {
+    padding: 10px;
+    border: 1px solid #aaa;
+}
