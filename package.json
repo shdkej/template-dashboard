@@ -1,6 +1,6 @@
 {
     "name": "Template-Board",
-    "version": "0.3.0",
+    "version": "0.3.1-rc.0",
     "private": true,
     "dependencies": {
         "axios": "^0.21.1",
