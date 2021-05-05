@@ -31,6 +31,6 @@ jobs:
         uses: pennsignals/publish_docker-compose@v0.1.1
         with:
           # Release version (tag)
-          version: ${{ steps.tag.output.newTag }} # optional, default is 
+          #version: ${{ steps.tag.output.newTag }} # optional, default is 
           # docker-compose file to build and publish images from
           docker_compose: docker-compose.yml
