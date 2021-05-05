@@ -26,4 +26,4 @@ jobs:
           default: prerelease
           
       - name: check tag output
-        run: echo ${{ steps.tag.output.* }}
+        run: echo ${{ steps.tag.output.newTag }}
