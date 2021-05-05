@@ -27,3 +27,8 @@ jobs:
           
       - name: check tag output
         run: echo ${{ steps.tag.output.newTag }}
+
+      - name: Generate Auto Changelog
+        uses: ahmadawais/action-auto-changelog@master
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
