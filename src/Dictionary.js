@@ -6,30 +6,22 @@ import {
     getDict,
     addItem,
     updateRequestedTag,
-    deleteItem,
+    deleteDict,
     getRequestedTag,
 } from "./components/fetch";
 
 const Dictionary = (props) => {
     const [value, setValue] = useState("");
     const [options, setOptions] = useState(null);
-    const [tags, setTags] = useState(null);
+    const [request, setRequest] = useState(null);
     const [child, setChild] = useState(true);
     const { items, requestSort } = useSortableData(options);
 
     useEffect(() => {
         getDict().then((res) => {
             setOptions(res.data);
-            console.log(res.data);
         });
     }, []);
-
-    useEffect(() => {
-        getRequestedTag().then((res) => {
-            setTags(res.data);
-            console.log("tag = ", res.data);
-        });
-    }, [child]);
 
     const add = useCallback((data) => {
         const tag = addItem(data);
@@ -37,8 +29,8 @@ const Dictionary = (props) => {
     }, []);
 
     const doDelete = useCallback((key) => {
-        deleteItem(key);
-        setOptions((prev) => (prev ? prev.filter((i) => i.Tag !== key) : []));
+        deleteDict(key);
+        setOptions((prev) => (prev ? prev.filter((i) => i.Name !== key) : []));
     }, []);
 
     return (
@@ -83,15 +75,7 @@ const Dictionary = (props) => {
                                 </td>
                                 <td>{option.Tags}</td>
                                 <td>{option.UpdatedAt}</td>
-                                <td>
-                                    {tags && "Tag" in tags
-                                        ? tags[
-                                              tags.findIndex(
-                                                  (i) => i.Tag === option.Name
-                                              )
-                                          ].TagLine
-                                        : []}
-                                </td>
+                                <td>{option.requestTags}</td>
                                 <td>
                                     <TagManager
                                         selection={option.Name}

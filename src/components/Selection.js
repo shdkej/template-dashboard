@@ -54,11 +54,8 @@ const CustomSelection = (props) => {
                     multiple={true}
                     onChange={(event) => handleSelectChange(event)}
                 >
-                    {typeof options === "object" &&
-                    options[0].hasOwnProperty("Tag")
-                        ? options.map((item, index) =>
-                              renderInput(index, item.Tag)
-                          )
+                    {typeof options === "object" && options.length > 1
+                        ? options.map((item, index) => renderInput(index, item))
                         : null}
                 </select>
             </div>
@@ -71,9 +68,10 @@ const CustomSelection = (props) => {
 };
 
 const renderInput = (i, input) => {
+    const result = JSON.stringify(input);
     return (
         <option key={i} value={input}>
-            {input}
+            {result}
         </option>
     );
 };

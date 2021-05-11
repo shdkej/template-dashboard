@@ -50,13 +50,16 @@ export const addTag = (data, selection) => {
 };
 
 export const getRequestedTag = () => {
-    //return axios.get("/request");
     return axios.get("http://localhost:8081");
 };
 
 export const getDict = () => {
-    //return axios.get("/request");
     return axios.get("http://localhost:8082");
+};
+
+export const deleteDict = (key) => {
+    const url = "http://localhost:8082/" + key;
+    axios.delete(url);
 };
 
 export const addItem = (data) => {

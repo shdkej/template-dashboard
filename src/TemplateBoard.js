@@ -21,6 +21,7 @@ class TemplateBoard extends Component {
                     url: "http://localhost:8081",
                     request: [],
                 },
+                { name: "github", url: "https://api.github.com/users/shdkej/repos", request: [] },
             ],
             production: false,
             data: [],
@@ -53,17 +54,6 @@ class TemplateBoard extends Component {
                 ))}
                 <div className="square">Most used</div>
                 <div>Most recent</div>
-                <div className="square">
-                    <h3>stage</h3>
-                    <label>
-                        develop
-                        <input type="checkbox" value={this.state.production} />
-                    </label>
-                    <label>
-                        production
-                        <input type="checkbox" value={this.state.production} />
-                    </label>
-                </div>
                 <div>
                     <h3>repositories</h3>
                 </div>
