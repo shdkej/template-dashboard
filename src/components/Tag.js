@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import { addTag } from "./fetch";
 
 const TagManager = (props) => {
     const [data, setData] = useState("");
@@ -7,9 +6,8 @@ const TagManager = (props) => {
     const { selection, childCall } = props;
 
     const add = useCallback(
-        (data, selection) => {
-            addTag(data, selection);
-            childCall((prev) => !prev);
+        (selection, data) => {
+            childCall(selection, data);
             console.log("callback in tagmanager", data);
         },
         [childCall]
@@ -26,7 +24,7 @@ const TagManager = (props) => {
                         placeholder="Tell Me Anything"
                         onChange={(event) => setData(event.target.value)}
                     />
-                    <button onClick={() => add(data, selection)}>ADD</button>
+                    <button onClick={() => add(selection, data)}>ADD</button>
                 </div>
             ) : (
                 <button onClick={() => setVisible(!visible)}>

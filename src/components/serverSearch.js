@@ -6,24 +6,26 @@ const Search = (props) => {
     const { name, data } = props;
 
     useEffect(() => {
-        sss(data, setOutput);
+        autoComplete(data, setOutput);
         console.log("effected in serverSearch", data);
     }, [data]);
 
     return (
         <div>
             <h3>Server Side Search for {name}</h3>
-            <button onClick={() => console.log("")}>search</button>
-            <div>{output ? output.map((item) => item.Tag) : "empty"}</div>
+            <div>
+                synonym is {output ? output.map((item) => item.Name) : "empty"}
+            </div>
         </div>
     );
 };
 
-const sss = (value, setOutput) => {
+const autoComplete = (value, setOutput) => {
     value = value.toString().replaceAll(",", "%20").replaceAll("#", "");
-    axios
-        .get("http://localhost:8082/" + value)
-        .then((res) => setOutput(res.data));
+    axios.get("http://localhost:8080/synonym/" + value).then((res) => {
+        console.log(value, res.data);
+        setOutput(res.data);
+    });
 };
 
 export default Search;

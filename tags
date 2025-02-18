@@ -1,0 +1,46 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+# template page with search and dictionary	README.md	/^# template page with search and dictionary$/;"	h
+## 데이터 형식	README.md	/^## 데이터 형식$/;"	h
+## 추가 필요	README.md	/^## 추가 필요$/;"	h
+## 템플릿 페이지 제작	README.md	/^## 템플릿 페이지 제작$/;"	h
+### Changelog	changelog.md	/^### Changelog$/;"	h
+#### [v0.3.1-rc.3](https://github.com/shdkej/template-dashboard/compare/v0.3.1-rc.3...v0.3.1-rc.3)	changelog.md	/^#### [v0.3.1-rc.3](https:\/\/github.com\/shdkej\/template-dashboard\/compare\/v0.3.1-rc.3...v0.3.1-rc.3)$/;"	h
+#### [v0.3.1-rc.3](https://github.com/shdkej/template-dashboard/compare/v0.3.1-rc.3...v0.3.1-rc.3)	changelog.md	/^#### [v0.3.1-rc.3](https:\/\/github.com\/shdkej\/template-dashboard\/compare\/v0.3.1-rc.3...v0.3.1-rc.3)$/;"	r
+#### etc	README.md	/^#### etc$/;"	h
+#### etc	README.md	/^#### etc$/;"	r
+#### template dashboard에서 workflows dashboard로	README.md	/^#### template dashboard에서 workflows dashboard로$/;"	h
+#### template dashboard에서 workflows dashboard로	README.md	/^#### template dashboard에서 workflows dashboard로$/;"	r
+#### v0.3.1-rc.3	changelog.md	/^#### v0.3.1-rc.3$/;"	h
+#### v0.3.1-rc.3	changelog.md	/^#### v0.3.1-rc.3$/;"	r
+#### workflow	README.md	/^#### workflow$/;"	h
+#### workflow	README.md	/^#### workflow$/;"	r
+#### 고려사항	README.md	/^#### 고려사항$/;"	h
+#### 고려사항	README.md	/^#### 고려사항$/;"	r
+#### 문맥 사전 구축	README.md	/^#### 문맥 사전 구축$/;"	h
+#### 문맥 사전 구축	README.md	/^#### 문맥 사전 구축$/;"	r
+#### 제한	README.md	/^#### 제한$/;"	h
+#### 제한	README.md	/^#### 제한$/;"	r
+#### 템플릿으로 제공될 것	README.md	/^#### 템플릿으로 제공될 것$/;"	h
+#### 템플릿으로 제공될 것	README.md	/^#### 템플릿으로 제공될 것$/;"	r
+#### 프로덕션에서 추가될 것	README.md	/^#### 프로덕션에서 추가될 것$/;"	h
+#### 프로덕션에서 추가될 것	README.md	/^#### 프로덕션에서 추가될 것$/;"	r
+UpdatedAt	src/components/fetch.js	/^        UpdatedAt: today,$/;"	p	class:const
+checkValidServiceWorker	src/registerServiceWorker.js	/^function checkValidServiceWorker(swUrl) {$/;"	f
+clouding	src/TextCloud.js	/^function clouding(data) {$/;"	f
+data	src/App.js	/^            data: [],$/;"	p	class:state
+draw	src/TextCloud.js	/^function draw(words) {$/;"	f
+name	src/components/fetch.js	/^        name: data,$/;"	p	class:const
+registerValidSW	src/registerServiceWorker.js	/^function registerValidSW(swUrl) {$/;"	f
+replace	src/components/renderHTML.js	/^        replace: (domNode) => {$/;"	p	class:const
+requestData	src/TemplateBoard.js	/^            requestData: [],$/;"	p	class:state
+result	src/components/box.js	/^            result: this.props.items,$/;"	p	class:state
+tags	src/components/fetch.js	/^        tags: "default",$/;"	p	class:const
+tags	src/components/fetch.js	/^        tags: value,$/;"	p	class:const
+text	src/components/box.js	/^            text: "",$/;"	p	class:state
+useFetch	src/components/fetch.js	/^function useFetch(url) {$/;"	f
+wordCount	src/TextCloud.js	/^function wordCount(words, word) {$/;"	f

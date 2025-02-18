@@ -1,5 +1,5 @@
 :root {
-    --main-color: black;
+    --main-color: #282c34;
     --second-color: silver;
     --heading-color: darkorange;
 }
@@ -155,6 +155,11 @@ button {
     align-items: center;
 }
 .setup {
+    flex-grow: 1;
+    flex-basis: 300px;
+    align-self: start;
+    position: sticky;
+    top: 100px;
     padding: 10px;
 }
 

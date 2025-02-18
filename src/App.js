@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
-import { TemplateBoard, Dictionary, Workflows, SearchBoard } from "./pages";
-import Box from "./components/box";
+import {
+    TemplateBoard,
+    Dictionary,
+    Workflows,
+    SearchBoard,
+    TextCloud,
+} from "./pages";
 
 class App extends Component {
     constructor() {
         super();
 
         this.state = {
-            options: [],
             data: [],
             error: null,
         };
@@ -19,7 +23,7 @@ class App extends Component {
     };
 
     render() {
-        const { options, error } = this.state;
+        const { data, error } = this.state;
         if (error) return <p>error</p>;
 
         return (
@@ -37,9 +41,11 @@ class App extends Component {
                     <li>
                         <Link to="/searchboard">SearchBoard</Link>
                     </li>
+                    <li>
+                        <Link to="/textcloud">TextCloud</Link>
+                    </li>
                 </div>
                 <h1>Template</h1>
-                <Box items={options} parentCallback={this.handleUpdate} />
                 {this.state.data.map((d, index) => {
                     if (typeof d !== "object") {
                         return <p key={index}>{d}</p>;
@@ -56,28 +62,22 @@ class App extends Component {
                         render={(props) => (
                             <TemplateBoard
                                 {...props}
-                                options={options}
                                 parentCallback={this.handleUpdate}
                             />
                         )}
                     />
                     <Route
                         path="/dictionary"
-                        render={(props) => (
-                            <Dictionary />
-                        )}
+                        render={(props) => <Dictionary />}
                     />
-                    <Route
-                        path="/workflow"
-                        render={(props) => (
-                            <Workflows />
-                        )}
-                    />
+                    <Route path="/workflow" render={(props) => <Workflows />} />
                     <Route
                         path="/searchboard"
-                        render={(props) => (
-                            <SearchBoard />
-                        )}
+                        render={(props) => <SearchBoard />}
+                    />
+                    <Route
+                        path="/textcloud"
+                        render={(props) => <TextCloud />}
                     />
                 </div>
             </div>

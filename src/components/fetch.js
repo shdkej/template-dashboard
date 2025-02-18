@@ -24,17 +24,17 @@ function useFetch(url) {
 }
 
 export const getItem = () => {
-    return axios.get("http://localhost:8080");
+    return axios.get("/item");
 };
 
 export const deleteItem = (key) => {
-    const url = "http://localhost:8080/" + key;
+    const url = "/item/" + key;
     axios.delete(url);
 };
 
 export const getPopupData = (text) => {
     const value = text.replace(/ /g, "_");
-    const url = "http://localhost:8080/" + value;
+    const url = "/synonym/" + value;
     return axios
         .get(url)
         .then((res) => {
@@ -44,38 +44,47 @@ export const getPopupData = (text) => {
 };
 
 export const addTag = (data, selection) => {
-    const url = "http://localhost:8081";
+    const url = "/temp/";
     const key = data;
     axios.post(url, { Tag: selection, TagLine: key });
 };
 
 export const getRequestedTag = () => {
-    return axios.get("http://localhost:8081");
+    return axios.get("/temp/");
 };
 
 export const getDict = () => {
-    return axios.get("http://localhost:8082");
+    return axios.get("/synonym");
 };
 
 export const deleteDict = (key) => {
-    const url = "http://localhost:8082/" + key;
+    const url = "/synonym/" + key;
     axios.delete(url);
 };
 
-export const addItem = (data) => {
-    const url = "http://localhost:8082";
+export const addDict = (data) => {
+    const url = "/synonym";
     const today = new Date().toISOString().slice(0, 10);
     const tag = {
-        Name: data,
-        Tags: "default",
+        name: data,
+        tags: "default",
         UpdatedAt: today,
     };
+    console.log("add dictionary", tag);
     axios.post(url, tag);
     return tag;
 };
 
+export const updateDict = (key, value) => {
+    const url = "/synonym/" + key;
+    const tag = {
+        tags: value,
+    };
+    return axios.post(url, tag);
+};
+
 export const updateRequestedTag = () => {
-    const url = "http://localhost:8082";
+    const url = "/synonym/";
     getRequestedTag()
         .then((res) => {
             return res.data.map((value) => {

@@ -21,6 +21,7 @@ export const useSortableData = (options, config = null) => {
         if (!options) {
             return;
         }
+
         let sortedOptions = [...options];
         if (sortConfig !== null) {
             sortedOptions.sort((a, b) => {

@@ -11,8 +11,8 @@ class TemplateBoard extends Component {
             requestData: [],
             urls: [
                 {
-                    name: "workflows",
-                    url: "http://localhost:8082",
+                    name: "synonym",
+                    url: "/synonym",
                     request: [],
                 },
                 { name: "note", url: "http://localhost:8080", request: [] },
@@ -21,7 +21,16 @@ class TemplateBoard extends Component {
                     url: "http://localhost:8081",
                     request: [],
                 },
-                { name: "github", url: "https://api.github.com/users/shdkej/repos", request: [] },
+                {
+                    name: "github",
+                    url: "https://api.github.com/users/shdkej/repos",
+                    request: [],
+                },
+                {
+                    name: "docker-hub",
+                    url: "https://hub.docker.com/v2/repositories/shdkej/",
+                    request: [],
+                },
             ],
             production: false,
             data: [],
@@ -59,7 +68,6 @@ class TemplateBoard extends Component {
                 </div>
                 <div>Total: {this.state.requestData}</div>
                 <Search name={"Test"} data={this.state.requestData} />
-                <Filter name={"Test"} data={this.state.requestData} />
             </div>
         );
     }

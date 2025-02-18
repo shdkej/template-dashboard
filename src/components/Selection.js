@@ -14,7 +14,7 @@ const CustomSelection = (props) => {
             );
             setData(value);
             parentCallback(props.name, value);
-            console.log("callback in selection", data);
+            console.log("callback in selection", value);
         },
         [setData, parentCallback, props.name, data]
     );
@@ -68,10 +68,10 @@ const CustomSelection = (props) => {
 };
 
 const renderInput = (i, input) => {
-    const result = JSON.stringify(input);
+    const value = input.Name || input.name || input.Tag;
     return (
-        <option key={i} value={input}>
-            {result}
+        <option key={i} value={value}>
+            {value}
         </option>
     );
 };

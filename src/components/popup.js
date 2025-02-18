@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { getPopupData } from "./fetch";
 
 const Popup = (props) => {
@@ -6,9 +6,12 @@ const Popup = (props) => {
     const [data, setData] = useState("");
     const { text } = props;
 
-    useEffect(() => {
+    useMemo(() => {
+        if (!text || text === "") {
+            return;
+        }
         getPopupData(text).then((res) => setData(res));
-    }, [text]);
+    }, []);
 
     let yaml = data ? data.replaceAll("\n", "<br/>") : "empty";
     yaml = yaml.replaceAll(" ", "&nbsp;&nbsp;");

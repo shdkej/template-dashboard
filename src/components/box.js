@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Box extends React.Component {
     constructor(props) {
@@ -23,76 +23,82 @@ class Box extends React.Component {
 
         if (/[ㄱ-ㅎ]/.test(ch)) {
             const con2syl = {
-                'ㄱ': '가'.charCodeAt(0),
-                'ㄲ': '까'.charCodeAt(0),
-                'ㄴ': '나'.charCodeAt(0),
-                'ㄷ': '다'.charCodeAt(0),
-                'ㄸ': '따'.charCodeAt(0),
-                'ㄹ': '라'.charCodeAt(0),
-                'ㅁ': '마'.charCodeAt(0),
-                'ㅂ': '바'.charCodeAt(0),
-                'ㅃ': '빠'.charCodeAt(0),
-                'ㅅ': '사'.charCodeAt(0),
-            }
-            const begin = con2syl[ch] || ( ( ch.charCodeAt(0) - 12613 ) * 588 + con2syl['ㅅ']);
+                ㄱ: "가".charCodeAt(0),
+                ㄲ: "까".charCodeAt(0),
+                ㄴ: "나".charCodeAt(0),
+                ㄷ: "다".charCodeAt(0),
+                ㄸ: "따".charCodeAt(0),
+                ㄹ: "라".charCodeAt(0),
+                ㅁ: "마".charCodeAt(0),
+                ㅂ: "바".charCodeAt(0),
+                ㅃ: "빠".charCodeAt(0),
+                ㅅ: "사".charCodeAt(0),
+            };
+            const begin =
+                con2syl[ch] || (ch.charCodeAt(0) - 12613) * 588 + con2syl["ㅅ"];
             const end = begin + 587;
             return `[${ch}\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
         }
 
         return this.escapeRegExp(ch);
-    }
+    };
 
     createFuzzyMatcher(input) {
         const pattern = input
-            .split('')
+            .split("")
             .map(this.ch2pattern)
-            .map(pattern => '(' + pattern + ')')
-            .join('.*?');
+            .map((pattern) => "(" + pattern + ")")
+            .join(".*?");
         return new RegExp(pattern);
     }
 
     escapeRegExp = (ch) => {
-        const reRegExpChar = /[\\^$.*+?()[\]{}|]/g
-        const reHasRegExpChar = RegExp(reRegExpChar.source)
-        return (ch && reHasRegExpChar.test(ch))
-            ? ch.replace(reRegExpChar, '\\$&')
-            : (ch || '')
-    }
+        const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+        const reHasRegExpChar = RegExp(reRegExpChar.source);
+        return ch && reHasRegExpChar.test(ch)
+            ? ch.replace(reRegExpChar, "\\$&")
+            : ch || "";
+    };
 
     onQuery = (event, data) => {
-        const text = event.target.value
+        const text = event.target.value;
         this.setState({
             text: text,
         });
 
-        const regex = this.createFuzzyMatcher(text)
-        const result = data
-                        .map((node) => {
-                            var values = Object.keys(node).filter((key) => {
-                                return regex.test(node[key]);
-                            })
-                            return node[values]
-                        })
-
-        this.setState({
-            result: result,
+        console.log(data);
+        const regex = this.createFuzzyMatcher(text);
+        if (!data) {
+            return;
+        }
+        let result = data.map((node) => {
+            var values = Object.keys(node).filter((key) => {
+                return regex.test(node[key]);
+            });
+            if (values.length > 0) {
+                return node;
+            }
         });
 
-        this.props.parentCallback(result)
-    }
+        result = result.filter((r) => {
+            return r !== undefined;
+        });
+
+        this.props.parentCallback(result);
+    };
 
     render() {
         return (
-                <div>
+            <div>
                 <input
                     type="text"
                     name="search"
                     value={this.state.text}
                     placeholder="Search"
-                    onChange={event => this.onQuery(event, this.props.items)}
+                    onChange={(event) => this.onQuery(event, this.props.items)}
                 />
-                </div>
-        )
+            </div>
+        );
     }
 }
 
